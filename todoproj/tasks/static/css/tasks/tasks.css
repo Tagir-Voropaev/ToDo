@@ -315,12 +315,44 @@
     background-color: #ff0000;
     border-radius: 15px;
 }
-.task-checkbox-block{
-}
-.task-name-block{
-}
-.task-time-block{
+.edit-task-block{
+    margin-top: 6px;
+    position: relative;
+    background-color: #fff;
+    box-shadow: 2px 2px 4px 0px rgba(34, 60, 80, 0.2);
+    min-height: 60px;
+    height: 60px;
+    border-radius: 5px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 7fr 2fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    align-items: center;
+    align-self: center;
 }
 
-
-
+.edit-task-input{
+    margin: 0 20px;
+    height: 30px;
+    border: 1px solid #0000002c;
+    border-radius: 5px;
+    padding: 0 0 0 10px;
+    outline:none;
+}
+.edit-task-submit{
+    margin: auto;
+    border: none;
+    background-color: #008000;
+    box-shadow: 2px 2px 4px 0px rgba(34, 60, 80, 0.4);
+    color: #fff;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    transition: 0.1s ease;
+}
+.edit-task-submit:hover{
+    box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.4);
+}
+.edit-task-submit:active{
+    box-shadow: 0px 0px 0px 0px rgba(34, 60, 80, 0.4);
+}
