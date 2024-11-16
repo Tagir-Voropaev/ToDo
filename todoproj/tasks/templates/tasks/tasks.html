@@ -1,0 +1,205 @@
+{% extends "todoapp/base.html" %}
+{% load static %}
+
+
+{% block link_styles %}
+<link rel="stylesheet" href="{% static 'css/tasks/tasks.css' %}">
+{% endblock %}
+
+{% block title %} 
+Задачи
+{% endblock %}
+
+{% block content %}
+<div class="content">
+    <div class="state-buttons">
+        <button class="state-btn state-btn-one state-btn-id">Сегодня</button>
+        <button class="state-btn state-btn-two state-btn-id">В ожидании</button>
+        <button class="state-btn state-btn-three state-btn-id">Просроченные</button>
+    </div>
+    <div class="task-block">
+        <h2 class="task-interface-text">Задачи</h2>
+        <div class="task-interface">
+            <p class="task-interface-all">Выбрать всё</p>
+            <div class="task-add-error">{{ error }}</div>
+            <div class="task-interface-buttons">
+                <button class="task-interface-delete task-interface-delete-passive">Удалить</button>
+                <button class="task-interface-add" id="task-interface-add">Добавить</button>
+            </div>
+        </div>
+        <div class="task-list-wrapper">
+            <div class="task-add-form-block">
+                <div class="task-add-form">
+                    <form method="post" class="task-add-form-main">
+                        {% csrf_token %}
+                        {{ form.title_task }}
+                        {{ form.date_task}}
+                        {{ form.time_task}}
+                        <!-- <input type="text" class="task-add-task task-add-input" placeholder="Введите задачу">
+                        <input type="date" class="task-add-date task-add-input" placeholder="Введите дату">
+                        <input type="time" class="task-add-time task-add-input" placeholder="Введите время"> -->
+                        <button type="submit" class="task-add-submit"><i class="fa-solid fa-plus"></i></button>
+                    </form>
+                </div>   
+            </div>
+            <div class="task-list">
+                <div class="task-list-elem task-list-today">
+                    {% if tasks %}
+                        {% for el in tasks %}
+                        <div class="task-elem">
+                            <div class="task-checkbox-block">
+                                <input type="checkbox" class="task-checkbox" id="task-checkbox-{{ el.id }}">
+                            </div>
+                            <div class="task-name-block">
+                                <p class="task-name">{{ el.title_task }}</p>
+                            </div>
+                            <div class="task-date-block">
+                                <p class="task-date">{{ el.date_task }}</p>
+                            </div>
+                            <div class="task-time-block">
+                                <p class="task-time">{{ el.time_task }}</p>
+                            </div>
+                            <div class="task-edit">
+                                <i class="fa-regular fa-pen-to-square task-edit-icon"></i>
+                            </div>
+                            <div class="task-colormark-box">
+                                <div class="task-colormark"></div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="task-list-none"><h1>У вас нет задач</h1></div>
+                    {% endif %}
+                </div>
+                <div class="task-list-elem task-list-pending">
+                    <div class="task-elem">
+                        <div class="task-checkbox-block">
+                            <input type="checkbox" class="task-checkbox">
+                        </div>
+                        <div class="task-name-block">
+                            <p class="task-name">Выполнить задачу в такое время</p>
+                        </div>
+                        <div class="task-date-block">
+                            <p class="task-date">Ср, 13 Окт. 2024</p>
+                        </div>
+                        <div class="task-time-block">
+                            <p class="task-time">18:33</p>
+                        </div>
+                        <div class="task-edit">
+                            <i class="fa-regular fa-pen-to-square task-edit-icon"></i>
+                        </div>
+                        <div class="task-colormark-box">
+                            <div class="task-colormark"></div>
+                        </div>
+        
+                    </div>
+                </div>
+                <div class="task-list-elem task-list-overdue">
+                    <div class="task-elem">
+                        <div class="task-checkbox-block">
+                            <input type="checkbox" class="task-checkbox">
+                        </div>
+                        <div class="task-name-block">
+                            <p class="task-name">Выполнить задачу в такое время</p>
+                        </div>
+                        <div class="task-date-block">
+                            <p class="task-date">Ср, 13 Окт. 2024</p>
+                        </div>
+                        <div class="task-time-block">
+                            <p class="task-time">18:33</p>
+                        </div>
+                        <div class="task-edit">
+                            <i class="fa-regular fa-pen-to-square task-edit-icon"></i>
+                        </div>
+                        <div class="task-colormark-box">
+                            <div class="task-colormark"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script>
+    $(document).ready(function(){
+        let checkAddTask = 0;
+        // ДЕФОЛТ АКТИВНАЯ КАТЕГОРИЯ
+        activeBtn = $(".state-btn-one")
+        activeBtn.addClass("state-btn-selected");
+        activeBtn.removeClass("state-btn");
+        $("#task-interface-add").on("click", function(){
+            if(checkAddTask == 0){
+                checkAddTask = 1;
+                $(".task-add-form-block").css("max-height", "66px");
+                return
+            }
+            else if(checkAddTask == 1){
+                checkAddTask = 0;
+                $(".task-add-form-block").css("max-height", "0");
+                return
+            }
+        });
+        let count_task_selected = 0;
+        let selected;
+        task_selected = [];
+        task_selected_id = [];
+        $(".task-checkbox").on("click", function(){
+            if($(this).prop('checked')){
+                selected = $(this).attr("id");
+                task_selected.push(selected);
+            }
+            else{
+                task_selected = task_selected.filter(item => item !== $(this).attr("id"));
+            }
+            if(task_selected.length > 0){
+                $(".task-interface-delete").addClass("task-interface-delete-active");
+                $(".task-interface-delete").removeClass("task-interface-delete-passive");
+            }
+            if (task_selected.length == 0){
+                $(".task-interface-delete").removeClass("task-interface-delete-active");
+                $(".task-interface-delete").addClass("task-interface-delete-passive");
+            }
+        });
+        if($(".task-checkbox").prop('checked')){
+            $(".task-interface-delete").addClass(".task-interface-delete-active");
+            $(".task-interface-delete").removeClass(".task-interface-delete-passive");
+        }
+
+        // $(".task-interface-delete").on("click", function(){;
+        //     for(let i = 0; i < task_selected.length; i++){
+        //         console.log(task_selected[i]);
+        //         let symb = task_selected[i];
+        //         let last = str.length - 1; // номер последнего символа
+        //         alert(str[last]);
+        //     }
+        // });
+
+
+        // ПЕРЕКЛЮЧЕНИЕ МЕЖДУ КАТЕГОРИЯМИ
+        $(".state-btn-id").on( "click", function() {
+            activeBtn.addClass("state-btn");
+            activeBtn.removeClass("state-btn-selected");
+            activeBtn = $(this);
+            activeBtn.addClass("state-btn-selected");
+            activeBtn.removeClass("state-btn");
+            if($(this).hasClass('state-btn-one')){
+                $(".task-list").css("left", "0%");
+            }
+            if($(this).hasClass('state-btn-two')){
+                $(".task-list").css("left", "-120%");
+            }
+            if($(this).hasClass('state-btn-three')){
+                $(".task-list").css("left", "-240%");
+            }
+        } );
+    });
+    
+</script>
+{% endblock %}
+
+
+

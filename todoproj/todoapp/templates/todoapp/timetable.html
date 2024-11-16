@@ -1,0 +1,15 @@
+{% extends "todoapp/base.html" %} 
+{% load static %}
+
+
+{% block link_styles %}
+<link rel="stylesheet" href="{% static 'css/timetable/timetable.css' %}">
+{% endblock %}
+
+{% block title %} 
+Расписание
+{% endblock %}
+
+{% block content %}
+<h1>Это страница Расписание</h1>
+{% endblock %}

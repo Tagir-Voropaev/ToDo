@@ -1,0 +1,48 @@
+* {
+    font-family: "Fira Sans";
+    margin: 0;
+    padding: 0;
+}
+body{
+    background-color: #f2f2f2;
+    overflow: hidden;
+}
+a{
+    text-decoration: none;
+}
+.header{
+    width: 100%;
+    height: 60px;
+    background-color: #594662;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.h-navbar{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.h-navbar a{
+    margin: 0 20px;
+    color: #f2f2f2;
+    height: 20px;
+    transition: 0.1s ease;
+}
+.h-navbar a:hover{
+    color: #d3d3d3;
+    height: 22px;
+    border-bottom: #d3d3d3 solid 1px;
+}
+.h-navbar a:active{
+    color: #c3c3c3;
+    border-bottom: #c3c3c3 solid 1px;
+}
+
+.wrapper{
+}
+/* #00A98F - зеленый*/
+/* #594662 - фиолефтовый */
+/* f2f2f2 - цвет body (тусклый белый) */

@@ -1,0 +1,15 @@
+{% extends "todoapp/base.html" %} 
+{% load static %}
+
+
+{% block link_styles %}
+<link rel="stylesheet" href="{% static 'css/payment/payment.css' %}">
+{% endblock %}
+
+{% block title %} 
+Оплата
+{% endblock %}
+
+{% block content %}
+<h1>Это страница оплаты</h1>
+{% endblock %}

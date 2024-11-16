@@ -1,0 +1,15 @@
+{% extends "todoapp/base.html" %} 
+{% load static %}
+
+
+{% block link_styles %}
+<link rel="stylesheet" href="{% static 'css/home/home.css' %}">
+{% endblock %}
+
+{% block title %} 
+Главная
+{% endblock %}
+
+{% block content %}
+<h1>Это страница главная</h1>
+{% endblock %}
