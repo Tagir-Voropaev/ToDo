@@ -46,37 +46,40 @@
                 <div class="task-list-elem task-list-today">
                     {% if tasks %}
                         {% for el in tasks %}
-                        <div class="task-elem">
-                            <div class="task-checkbox-block">
-                                <input type="checkbox" class="task-checkbox" id="task-checkbox-{{ el.id }}">
-                            </div>
-                            <div class="task-name-block">
-                                <p class="task-name">{{ el.title_task }}</p>
-                            </div>
-                            <div class="task-date-block">
-                                <p class="task-date">{{ el.date_task }}</p>
-                            </div>
-                            <div class="task-time-block">
-                                <p class="task-time">{{ el.time_task }}</p>
-                            </div>
-                            <div class="task-edit">
-                                <i class="fa-regular fa-pen-to-square task-edit-icon"></i>
-                            </div>
-                            <div class="task-colormark-box">
-                                <div class="task-colormark"></div>
-                            </div>
-                        </div>
-                        <div class="edit-task-box">
-                            <div class="edit-task-block">
-                                <div class="edit-task-1">
+                        <div class="task-elem-box">
+                            <div class="task-elem">
+                                <div class="task-checkbox-block">
+                                    <input type="checkbox" class="task-checkbox" id="task-checkbox-{{ el.id }}">
                                 </div>
-                                <input type="text" class="edit-task-text edit-task-input" placeholder="Введите задачу">
-                                <input type="date" class="edit-task-date edit-task-input" placeholder="Введите дату">
-                                <input type="time" class="edit-task-time edit-task-input" placeholder="Введите время">
-                                <div class="edit-task-2">
+                                <div class="task-name-block">
+                                    <p class="task-name">{{ el.title_task }}</p>
                                 </div>
-                                 <button type="submit" class="edit-task-submit"><i class="fa-solid fa-check"></i></button>
+                                <div class="task-date-block">
+                                    <p class="task-date">{{ el.date_task }}</p>
+                                </div>
+                                <div class="task-time-block">
+                                    <p class="task-time">{{ el.time_task }}</p>
+                                </div>
+                                <div class="task-edit">
+                                    <i class="fa-regular fa-pen-to-square task-edit-icon"></i>
+                                </div>
+                                <div class="task-colormark-box">
+                                    <div class="task-colormark"></div>
+                                </div>
+                            </div>   
+                            <div class="edit-task-box">
+                                <div class="edit-task-block">
+                                    <div class="edit-task-1">
+                                    </div>
+                                    <input type="text" class="edit-task-text edit-task-input" placeholder="Введите задачу">
+                                    <input type="date" class="edit-task-date edit-task-input" placeholder="Введите дату">
+                                    <input type="time" class="edit-task-time edit-task-input" placeholder="Введите время">
+                                    <div class="edit-task-2">
+                                    </div>
+                                    <button type="submit" class="edit-task-submit"><i class="fa-solid fa-check"></i></button>
+                                </div>    
                             </div>
+                            
                         </div>
                         {% endfor %}
                     {% else %}
@@ -143,14 +146,28 @@
         activeBtn = $(".state-btn-one")
         activeBtn.addClass("state-btn-selected");
         activeBtn.removeClass("state-btn");
+        $(".task-edit-icon").on("click", function(){
+            let editParent = $(this).closest('.task-elem-box');
+            if($(editParent).find(".edit-task-box").hasClass('edit-task-box-active')){
+                editParent.css("height", "60px");
+                $(editParent).find(".edit-task-box").removeClass("edit-task-box-active");
+            }
+            else{
+                editParent.css("height", "120px");
+                $(editParent).find(".edit-task-box").addClass("edit-task-box-active");
+            }
+            console.log(editParent);
+        });
         $("#task-interface-add").on("click", function(){
             if(checkAddTask == 0){
                 checkAddTask = 1;
+                $(".task-add-form-block").css("opacity", "100%");
                 $(".task-add-form-block").css("max-height", "66px");
                 return
             }
             else if(checkAddTask == 1){
                 checkAddTask = 0;
+                $(".task-add-form-block").css("opacity", "0");
                 $(".task-add-form-block").css("max-height", "0");
                 return
             }

@@ -11,6 +11,7 @@ a{
     text-decoration: none;
 }
 .header{
+    position: relative;
     width: 100%;
     height: 60px;
     background-color: #594662;
@@ -18,6 +19,9 @@ a{
     flex-direction: row;
     justify-content: center;
     align-items: center;
+}
+.h-navbar-box{
+   
 }
 .h-navbar{
     display: flex;
@@ -46,3 +50,12 @@ a{
 /* #00A98F - зеленый*/
 /* #594662 - фиолефтовый */
 /* f2f2f2 - цвет body (тусклый белый) */
+.h-logo{
+    position: relative;
+    left: -100px;
+}
+
+.h-logo-link img{
+    height: 40px;
+    width: 40px;
+}

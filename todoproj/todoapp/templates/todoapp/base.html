@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{%  static 'css/base/base.css' %}">
+    <link rel="icon" type="image/x-icon" href="{%  static 'images/whitelogo.png' %}">
     {% block link_styles %}{% endblock %}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,6 +18,11 @@
 <body>
     <div class="wrapper">
         <div class="header">
+            <div class="h-logo">
+                <a href="" class="h-logo-link">
+                    <img src="{%  static 'images/whitelogo.png' %}" alt="">
+                </a>
+            </div>
             <div class="h-navbar">
                 <a href="{% url 'home' %}">Главная</a>
                 <a href="{% url 'tasks' %}">Задачи</a>
